@@ -7,17 +7,17 @@ export default function Accaunts() {
   const [accounts, setAccounts] = useState([]);
 
   function addAccount({ name, surname }) {
-    // e.preventDefault();
-    console.log(name, surname);
     setAccounts((accounts) => {
       return [...accounts, { id: uniqId(), name, surname, money: 0 }];
     });
-    // let formData = Object.fromEntries(new FormData());
   }
 
   return (
     <>
       <h1>Sąskaitos</h1>
+      <p>Klientų skaičius: {accounts.length}</p>
+      <p>Bendra laikoma suma: {accounts.reduce((acc, curr) => acc + curr.money, 0)}</p>
+
       <table className="table-saskaitos">
         <thead>
           <tr>
