@@ -4,6 +4,7 @@ export default function formatCurrency(number) {
     value: number.toString(),
     groupSeparator: ",",
     decimalSeparator: ".",
+    decimalScale: 2,
     intlConfig: { currency: "EUR", locale: "lt" },
   });
 }

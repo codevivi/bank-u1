@@ -9,6 +9,9 @@ $dark: #1a1a1a;
   padding: 0 2em;
   margin: auto;
 }
+.error-msg {
+  color: red;
+}
 .page-header {
   background-color: $dark;
   border-bottom: 5px solid $accent;
@@ -32,35 +35,95 @@ h1 {
 
 .table-saskaitos {
   margin: 2em auto;
-  border-collapse: collapse;
-  min-width: 800px;
+  max-width: 836px;
+  width: fit-content;
   margin-bottom: 3em;
-  tr {
-    margin: 0.5em;
+  border-spacing: 0 1em;
+  .mobile-header {
+    display: none;
   }
-  th {
+  thead {
     color: #1d1f1f;
     background-color: $accent;
-    font-weight: normal;
-    text-transform: uppercase;
+  }
+
+  tr {
+    border-bottom: 1px solid #52d4d0;
   }
   th {
-    width: min-content;
-    padding: 0.5em;
+    font-weight: normal;
+    text-transform: uppercase;
+    min-width: 116px;
+  }
+  th {
+    width: max-content;
+    padding: 0.5em 0;
+    text-align: left;
+    padding: 1em;
+  }
+  th:last-child {
+    float: right;
+    padding-right: 1em;
   }
 
   td {
-    padding: 0 0.5em;
     text-align: left;
+    text-indent: 1em;
+    border-bottom: 1px solid #52d4d07f;
     button {
       &.red {
         float: right;
       }
     }
 
+    &.td-actions {
+      display: inline-flex;
+      background-color: rgb(231, 234, 234);
+      padding: 0.3em;
+      align-items: stretch;
+    }
     input {
-      padding: 0.5em 1em;
-      // border-radius: 5px;
+      padding: 0.5rem 1rem;
+      margin: 0 0.3rem;
+      font-size: 1rem;
+    }
+  }
+}
+@media screen and (max-width: 1000px) {
+  .table-saskaitos {
+    min-width: 100%;
+    min-height: 50px;
+    background-color: #52d4d0;
+    border: 1px solid #52d4d0;
+    .mobile-header {
+      display: inline;
+      color: #52d4d0;
+      min-width: 70px;
+    }
+    tr {
+      margin: 0;
+      background-color: white;
+    }
+    th {
+      display: none;
+    }
+
+    td {
+      display: block;
+      min-height: 2em;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      &.td-actions {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      button {
+        margin: 0.5em;
+        &.red {
+          float: none;
+        }
+      }
     }
   }
 }
@@ -93,6 +156,10 @@ button {
   background-color: inherit;
   border: none;
   font-weight: bold;
+  color: #17a39f;
+  border: 1px solid #17a39f;
+  transition: all 0.3s;
+  min-height: 3em;
   margin: 0.1em;
   cursor: pointer;
   &.red {
@@ -101,10 +168,23 @@ button {
   }
   &.orange {
     color: rgb(228, 149, 21);
-    border: 1px solid orange;
+    border: 1px solid rgb(255, 166, 0);
   }
   &.green {
     color: green;
     border: 1px solid green;
+  }
+}
+button:hover,
+button:focus {
+  background-color: #52d4d02a;
+  &.green {
+    background-color: rgba(0, 128, 0, 0.216);
+  }
+  &.red {
+    background-color: rgba(255, 0, 0, 0.176);
+  }
+  &.orange {
+    background-color: rgba(255, 166, 0, 0.157);
   }
 }
