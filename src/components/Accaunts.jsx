@@ -1,22 +1,23 @@
 import { useState } from "react";
-import CurrencyInput from "react-currency-input-field";
 import AddAccount from "./AddAccount";
 import { v4 as uniqId } from "uuid";
+import OneAccountRow from "./OneAccountRow";
+import formatCurrency from "../functions/formatCurrency";
 
 export default function Accaunts() {
   const [accounts, setAccounts] = useState([]);
 
-  function addAccount({ name, surname }) {
+  const addAccount = ({ name, surname }) => {
     setAccounts((accounts) => {
       return [...accounts, { id: uniqId(), name, surname, money: 0 }];
     });
-  }
+  };
 
   return (
     <>
       <h1>Sąskaitos</h1>
       <p>Klientų skaičius: {accounts.length}</p>
-      <p>Bendra laikoma suma: {accounts.reduce((acc, curr) => acc + curr.money, 0)}</p>
+      <p>Bendra laikoma suma: {formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0))}</p>
 
       <table className="table-saskaitos">
         <thead>
@@ -30,19 +31,7 @@ export default function Accaunts() {
         </thead>
         <tbody>
           {accounts.map((account) => (
-            <tr key={account.id}>
-              <td>{account.name}</td>
-              <td>{account.surname}</td>
-              <td>{account.money}</td>
-              <td className="td-buttons">
-                <button className="green">pridėti lėšų</button>
-                <CurrencyInput id="amount" name="amount" placeholder="Įveskite sumą" suffix=" &euro;" decimalsLimit={2} onValueChange={(value, name) => console.log(value, name)} />
-                <button className="orange">nuskaičiuoti lėšas</button>
-              </td>
-              <td>
-                <button className="red">ištrinti</button>
-              </td>
-            </tr>
+            <OneAccountRow key={account.id} account={account} setAccounts={setAccounts} />
           ))}
         </tbody>
       </table>
