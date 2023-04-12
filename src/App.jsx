@@ -1,10 +1,18 @@
 import "./App.scss";
-import Saskaitos from "./components/Saskaitos";
+import Accounts from "./components/Accaunts";
+import logo from "./assets/logo96.png";
 
 function App() {
   return (
     <div className="App">
-      <Saskaitos />
+      <header className="page-header">
+        <div className="container">
+          <img className="logo" src={logo} alt="React bank logo" width={96} />
+        </div>
+      </header>
+      <div className="container">
+        <Accounts />
+      </div>
     </div>
   );
 }
