@@ -1,0 +1,17 @@
+@import "./global.scss";
+@import "./App.scss";
+@import "./Header.scss";
+@import "./Accounts.scss";
+@import "./AddAccount.scss";
+@import "./Footer.scss";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: $accent;
+  color: $darkest;
+}
+// @import "./Header.scss";

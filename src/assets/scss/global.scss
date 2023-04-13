@@ -1,0 +1,47 @@
+$accent: #19adfe;
+$dark: #0d2149;
+$darkest: #0c090d;
+$green: #00804b;
+$light: #f9ebe0;
+$orange: #fc6608;
+$red: #ef2906;
+$margin-large: 2.5rem;
+
+button {
+  font-size: 12px;
+  padding: 0.5em 1em;
+  background-color: inherit;
+  font-weight: bold;
+  color: $dark;
+  border: 1px solid $dark;
+  transition: all 0.3s;
+  min-height: 3em;
+  margin: 0.1em;
+  cursor: pointer;
+
+  &.red {
+    color: $red;
+    border-color: $red;
+  }
+  &.orange {
+    color: $orange;
+    border-color: $orange;
+  }
+  &.green {
+    color: $green;
+    border-color: $green;
+  }
+}
+button:hover,
+button:focus {
+  background-color: #0d214925;
+  &.green {
+    background-color: rgba(0, 128, 0, 0.315);
+  }
+  &.red {
+    background-color: rgba(255, 0, 0, 0.317);
+  }
+  &.orange {
+    background-color: rgba(255, 166, 0, 0.308);
+  }
+}

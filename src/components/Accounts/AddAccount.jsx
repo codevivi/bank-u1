@@ -27,16 +27,16 @@ export default function AddAccount({ addAccount }) {
   }
 
   return (
-    <div className="new-account">
+    <div className="add-account">
       <h2>Sukurti naują sąskaitą</h2>
-      <form onSubmit={handleForm} className="new-account-form">
+      <form onSubmit={handleForm} className="add-account-form">
         <div>
           <label htmlFor="name">Vardas</label>
-          <input id="name" onChange={handleNameChange} required minLength={2} maxLength={30} name="name" value={name} type="text" />
+          <input id="name" onChange={handleNameChange} required minLength={2} maxLength={20} name="name" value={name} type="text" />
         </div>
         <div>
           <label htmlFor="surname">Pavardė</label>
-          <input id="surname" onChange={handleSurnameChange} required minLength={2} maxLength={50} name="surname" value={surname} type="text" />
+          <input id="surname" onChange={handleSurnameChange} required minLength={2} maxLength={30} name="surname" value={surname} type="text" />
         </div>
         <button>Sukurti</button>
       </form>

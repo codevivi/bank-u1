@@ -1,0 +1,137 @@
+.accounts {
+  width: 100%;
+  max-width: fit-content;
+  min-width: 836px;
+  margin: auto;
+  .info {
+    width: fit-content;
+    min-width: 280px;
+    padding: 1em;
+    margin: auto;
+    margin-bottom: $margin-large;
+    background-color: $dark;
+    color: $light;
+    border-top: 5px solid $light;
+    &.left {
+      margin-left: 0;
+    }
+    .info-header {
+      color: $accent;
+      font-weight: bold;
+    }
+    .info-stat {
+      font-size: 1.1em;
+    }
+  }
+
+  .accounts-table {
+    width: 100%;
+    margin: auto;
+    margin-bottom: $margin-large;
+    background-color: $light;
+    font-size: 0.9em;
+    .mobile-header {
+      display: none;
+    }
+    thead {
+      background-color: $dark;
+      color: $light;
+    }
+
+    tr {
+      border-bottom: 1px solid $accent;
+    }
+    th {
+      font-weight: normal;
+      text-transform: uppercase;
+      min-width: 116px;
+      width: max-content;
+      text-align: left;
+      padding: 1em;
+    }
+    th:last-child {
+      text-align: center;
+      border-left: 5px solid $light;
+    }
+
+    td {
+      text-align: left;
+      text-indent: 1em;
+      padding-right: 0.5em;
+      border-bottom: 1px solid $accent;
+      button {
+        &.red {
+          float: right;
+        }
+      }
+
+      &.td-actions {
+        display: inline-flex;
+        background-color: rgba(205, 113, 22, 0.058);
+        // background-color: $dark;
+        align-items: stretch;
+        padding-left: 0.3em;
+      }
+      input {
+        padding: 0 0.2rem;
+        margin: 0 0.1rem;
+        border: none;
+        border: 1px solid $accent;
+        background-color: inherit;
+        outline: none;
+      }
+      input:focus,
+      input:hover {
+        background-color: #19aefe53;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1000px) {
+  .accounts {
+    min-width: 100%;
+    width: 100%;
+    max-width: 100%;
+    .accounts-table {
+      min-height: 50px;
+      background-color: $dark;
+      .mobile-header {
+        display: inline;
+        color: $accent;
+        min-width: 70px;
+      }
+      tr {
+        background-color: $light;
+      }
+      th {
+        display: none;
+      }
+
+      td {
+        display: block;
+        min-height: 2em;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        &.td-actions {
+          width: 100%;
+          box-sizing: border-box;
+          align-items: baseline;
+          * {
+            width: 50%;
+            margin: 0;
+          }
+          input {
+            padding: 0.7em;
+          }
+        }
+        button {
+          margin: 0.5em;
+          &.red {
+            float: none;
+          }
+        }
+      }
+    }
+  }
+}

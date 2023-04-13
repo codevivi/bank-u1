@@ -1,0 +1,14 @@
+.page-footer {
+  width: 100%;
+  padding: 0.5em 1em;
+  color: $light;
+  background-color: $dark;
+  text-align: center;
+  a {
+    color: $accent;
+  }
+  a:hover,
+  a:focus {
+    color: $orange;
+  }
+}

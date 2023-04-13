@@ -1,18 +1,15 @@
-import "./App.scss";
-import Accounts from "./components/Accaunts";
-import logo from "./assets/logo96.png";
+import Accounts from "./components/Accounts/Accaunts";
+import Header from "./components/Parts/Header";
+import Footer from "./components/Parts/Footer";
 
 function App() {
   return (
     <div className="App">
-      <header className="page-header">
-        <div className="container">
-          <img className="logo" src={logo} alt="React bank logo" width={96} />
-        </div>
-      </header>
-      <div className="container">
+      <Header />
+      <main className="container main">
         <Accounts />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 }
