@@ -2,7 +2,7 @@ import CurrencyInput from "react-currency-input-field";
 import { useState } from "react";
 import formatCurrency from "../../utils/formatCurrency";
 
-export default function OneAccountRow({ account, setAccounts, addMsg }) {
+export default function OneAccountRow({ account, setAccounts, deleteAccount, addMsg }) {
   const [newAmount, setNewAmount] = useState(null);
 
   const changeAmount = (value) => {
@@ -43,6 +43,14 @@ export default function OneAccountRow({ account, setAccounts, addMsg }) {
 
     setNewAmount(null);
   };
+
+  const handleDelete = () => {
+    if (account.money > 0) {
+      addMsg({ type: "error", text: "Sąskaitos kurioje yra pinigų ištrinti negalima." });
+      return;
+    }
+    deleteAccount(account.id);
+  };
   return (
     <tr>
       <td>
@@ -65,7 +73,10 @@ export default function OneAccountRow({ account, setAccounts, addMsg }) {
         <button className="orange" onClick={subtractMoneyFromAccount}>
           nuskaičiuoti lėšas
         </button>
-        <button className="red">ištrinti</button>
+
+        <button className={`red ${account.money > 0 ? "disabled" : null}`} onClick={handleDelete}>
+          ištrinti
+        </button>
       </td>
     </tr>
   );

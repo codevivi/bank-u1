@@ -6,12 +6,15 @@ import formatCurrency from "../../utils/formatCurrency";
 
 export default function Accaunts({ addMsg }) {
   const [accounts, setAccounts] = useState([]);
-  // const [errMsg, setErrMsg] = useState("");
 
   const addAccount = ({ name, surname }) => {
     setAccounts((accounts) => {
       return [...accounts, { id: uniqId(), name, surname, money: 0 }];
     });
+  };
+
+  const deleteAccount = (id) => {
+    setAccounts((accounts) => [...accounts].filter((account) => account.id !== id));
   };
 
   return (
@@ -39,7 +42,7 @@ export default function Accaunts({ addMsg }) {
           </thead>
           <tbody>
             {accounts.map((account) => (
-              <OneAccountRow key={account.id} account={account} setAccounts={setAccounts} addMsg={addMsg} />
+              <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />
             ))}
           </tbody>
         </table>

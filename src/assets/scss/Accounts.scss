@@ -63,6 +63,12 @@
         &.red {
           float: right;
         }
+        &.disabled {
+          pointer-events: none;
+          color: rgb(126, 123, 123);
+          border-color: rgb(130, 127, 127);
+          background-color: rgba(128, 128, 128, 0.465);
+        }
       }
 
       &.td-actions {

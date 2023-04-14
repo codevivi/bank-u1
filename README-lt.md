@@ -12,7 +12,7 @@ Banką sudaro puslapis, kuriame yra:
 
 - [x] Nauja sąskaita sukuriama su pradine 0 suma, o lėšos pridedamos/nuimamos sąraše įvedant sumą ir spaudžiant atitinkamą mygtuką.
 
-Sąskaitos, kurioje yra lėšų ištrinti neturi būti galima.
+- [x] Sąskaitos, kurioje yra lėšų ištrinti neturi būti galima.
 
 Sąskaitas saraše rūšiuoti pagal savininko pavardę.
 
