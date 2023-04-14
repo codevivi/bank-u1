@@ -24,6 +24,7 @@ export default function OneAccountRow({ account, setAccounts, addMsg }) {
       setAccounts((accounts) => {
         return accounts.map((item) => (item.id === account.id ? { ...item, money: item.money + Number(newAmount) } : item));
       });
+      addMsg({ type: "success", text: "Lėšos sėkmingai pridėtos." });
     }
     setNewAmount(null);
   };
@@ -37,6 +38,7 @@ export default function OneAccountRow({ account, setAccounts, addMsg }) {
       setAccounts((accounts) => {
         return accounts.map((item) => (item.id === account.id ? { ...item, money: item.money - Number(newAmount) } : item));
       });
+      addMsg({ type: "success", text: "Lėšos sėkmingai nuskaičiuotos." });
     }
 
     setNewAmount(null);

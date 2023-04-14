@@ -44,7 +44,7 @@ export default function Accaunts({ addMsg }) {
           </tbody>
         </table>
       )}
-      <AddAccount addAccount={addAccount} />
+      <AddAccount addAccount={addAccount} addMsg={addMsg} />
     </section>
   );
 }

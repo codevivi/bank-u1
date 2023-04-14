@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AddAccount({ addAccount }) {
+export default function AddAccount({ addAccount, addMsg }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
@@ -20,8 +20,11 @@ export default function AddAccount({ addAccount }) {
 
     if (name && surname) {
       addAccount({ name, surname });
+
       setName("");
       setSurname("");
+      addMsg({ type: "success", text: "Nauja sąskaita sėkmingai sukurta." });
+
       return;
     }
   }
