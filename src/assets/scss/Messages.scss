@@ -1,0 +1,29 @@
+.messages {
+  position: fixed;
+  top: 5em;
+  right: 0;
+  background-color: $light;
+  padding: 0.5em;
+  .msg {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.2em;
+    border-bottom: 2px solid $accent;
+    gap: 1em;
+    &.error {
+      color: $red;
+    }
+    &.success {
+      color: $green;
+    }
+    &.info {
+      color: $orange;
+    }
+    p {
+    }
+    button {
+      font-size: 0.5em;
+    }
+  }
+}

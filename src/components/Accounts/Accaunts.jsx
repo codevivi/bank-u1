@@ -4,9 +4,9 @@ import { v4 as uniqId } from "uuid";
 import OneAccountRow from "./OneAccountRow";
 import formatCurrency from "../../utils/formatCurrency";
 
-export default function Accaunts() {
+export default function Accaunts({ addMsg }) {
   const [accounts, setAccounts] = useState([]);
-  const [errMsg, setErrMsg] = useState("");
+  // const [errMsg, setErrMsg] = useState("");
 
   const addAccount = ({ name, surname }) => {
     setAccounts((accounts) => {
@@ -27,7 +27,6 @@ export default function Accaunts() {
           <span className="info-stat">{formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0))}</span>
         </p>
       </div>
-      <p className="error-msg">{errMsg}</p>
       {accounts.length > 0 && (
         <table className="accounts-table">
           <thead>
@@ -40,7 +39,7 @@ export default function Accaunts() {
           </thead>
           <tbody>
             {accounts.map((account) => (
-              <OneAccountRow key={account.id} account={account} setAccounts={setAccounts} setErrMsg={setErrMsg} />
+              <OneAccountRow key={account.id} account={account} setAccounts={setAccounts} addMsg={addMsg} />
             ))}
           </tbody>
         </table>

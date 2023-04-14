@@ -2,7 +2,7 @@ import CurrencyInput from "react-currency-input-field";
 import { useState } from "react";
 import formatCurrency from "../../utils/formatCurrency";
 
-export default function OneAccountRow({ account, setAccounts, setErrMsg }) {
+export default function OneAccountRow({ account, setAccounts, addMsg }) {
   const [newAmount, setNewAmount] = useState(null);
 
   const changeAmount = (value) => {
@@ -10,7 +10,7 @@ export default function OneAccountRow({ account, setAccounts, setErrMsg }) {
       console.log(value);
       if (Number(value) > 1000000000000) {
         setNewAmount((1000000000000).toString());
-        setErrMsg("Maksimali suma kurią galite pridėti vienu metu - 1 trilijonas.");
+        addMsg({ type: "error", text: "Maksimali suma kurią galite pridėti vienu metu - 1 trilijonas." });
         return;
       }
       setNewAmount(value);
@@ -31,7 +31,7 @@ export default function OneAccountRow({ account, setAccounts, setErrMsg }) {
   const subtractMoneyFromAccount = () => {
     if (newAmount !== null) {
       if (account.money - Number(newAmount) < 0) {
-        setErrMsg("Pervedimas nepavyko: saskaitoje neužtenka pinigų.");
+        addMsg({ type: "error", text: "Pervedimas nepavyko: saskaitoje neužtenka pinigų." });
         return;
       }
       setAccounts((accounts) => {
