@@ -2,15 +2,11 @@
 
 ## 📋 About
 
-<!-- ![alt app screenshot](./assets/screenshot.png) -->
+2023-03-24 assignment
 
-2023-03-17 assignment
+NOT FINISHED (working on);
 
 [read task in lithuanian](./README-lt.md)
-
-<!-- 🌐 **Site published at**: [https://codevivi.github.io/bank-u1](https://codevivi.github.io/bak-u1) -->
-
-<!-- 🎯 **Goals:** -->
 
 ### 🏁 Getting started
 
