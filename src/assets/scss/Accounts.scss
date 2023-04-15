@@ -67,15 +67,16 @@
           pointer-events: none;
           color: rgb(126, 123, 123);
           border-color: rgb(130, 127, 127);
-          background-color: rgba(128, 128, 128, 0.465);
+          background-color: rgba(128, 128, 128, 0.248);
         }
       }
 
       &.td-actions {
         display: inline-flex;
-        background-color: rgba(205, 113, 22, 0.058);
+        background-color: rgba(15, 151, 241, 0.074);
         align-items: stretch;
         padding-left: 0.3em;
+        padding-right: 0;
       }
       input {
         padding: 0 0.2rem;

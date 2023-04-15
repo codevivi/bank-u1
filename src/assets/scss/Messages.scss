@@ -1,29 +1,125 @@
 .messages {
   position: fixed;
-  top: 5em;
+  top: 4em;
   right: 0;
-  background-color: $light;
-  padding: 0.5em;
-  .msg {
+  height: 5.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
+  transition: all 2s;
+  // overflow: hidden;
+  box-shadow: -1px 1px 3px rgba(2, 66, 126, 0.693);
+  background-color: $dark;
+  // z-index: 1;
+  &.expanded {
+    height: auto;
+    max-height: 60vh;
+    overflow: scroll;
+  }
+  .controls {
+    background-color: transparent;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0.2em;
-    border-bottom: 2px solid $accent;
+    align-items: stretch;
+    justify-content: stretch;
     gap: 1em;
+    button {
+      background-color: $dark;
+      color: $light;
+      border: none;
+      font-size: 12px;
+      box-shadow: -1px 2px 3px rgba(2, 66, 126, 0.693);
+      &.delete-all {
+        border-left: 3px solid $accent;
+      }
+
+      &.toggle-expand {
+        flex: 1;
+        left: 0;
+        bottom: -1em;
+        margin: 0;
+        box-shadow: none;
+        padding: 0;
+        display: flex;
+        align-items: stretch;
+        justify-content: stretch;
+        min-height: auto;
+        font-size: 36px;
+        border: none;
+      }
+    }
+    button:hover,
+    button:focus {
+      color: $accent;
+    }
+  }
+
+  .msg {
+    background-color: $light;
+    padding: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.1em;
+    gap: 1em;
+
+    p {
+      position: relative;
+      padding-left: 40px;
+    }
+    .new-indicator {
+      position: absolute;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 3px 3px 9px white;
+      display: none;
+    }
+    &.active {
+      .new-indicator {
+        display: block;
+        animation-name: flash;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+      }
+      @keyframes flash {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+    }
+    button {
+      font-size: 36px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: auto;
+      padding: 0;
+    }
     &.error {
       color: $red;
+      .new-indicator {
+        background-color: $red;
+      }
     }
     &.success {
       color: $green;
+      .new-indicator {
+        background-color: $green;
+      }
     }
     &.info {
       color: $orange;
-    }
-    p {
-    }
-    button {
-      font-size: 0.5em;
+      .new-indicator {
+        background-color: $orange;
+      }
     }
   }
 }
