@@ -2,7 +2,7 @@ import { useState } from "react";
 import Message from "./Message";
 import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
 function Messages({ messages, deleteMsg, deleteAllMsg }) {
-  const [isExpanded, setIsExpanded] = useState("false");
+  const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div className={`messages ${isExpanded ? "expanded" : null}`}>
       {messages.map((msg) => (
