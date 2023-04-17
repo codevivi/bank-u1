@@ -1,11 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddAccount from "./AddAccount";
 import { v4 as uniqId } from "uuid";
 import OneAccountRow from "./OneAccountRow";
 import formatCurrency from "../../utils/formatCurrency";
 
-export default function Accaunts({ addMsg }) {
-  const [accounts, setAccounts] = useState([]);
+export default function Accounts({ addMsg }) {
+  const [accounts, setAccounts] = useState(null);
+
+  useEffect(() => {
+    let dbAccounts = localStorage.getItem("accounts");
+    if (dbAccounts !== null) {
+      setAccounts(JSON.parse(dbAccounts));
+    } else {
+      setAccounts([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (accounts === null) {
+      return;
+    }
+    localStorage.setItem("accounts", JSON.stringify(accounts));
+  }, [accounts]);
 
   const addAccount = ({ name, surname }) => {
     setAccounts((accounts) => {
@@ -17,6 +33,9 @@ export default function Accaunts({ addMsg }) {
     setAccounts((accounts) => [...accounts].filter((account) => account.id !== id));
   };
 
+  if (accounts === null) {
+    return null;
+  }
   return (
     <section className="accounts">
       <h1>Sąskaitos</h1>
@@ -34,16 +53,18 @@ export default function Accaunts({ addMsg }) {
         <table className="accounts-table">
           <thead>
             <tr>
-              <th>Vardas</th>
               <th>Pavardė</th>
+              <th>Vardas</th>
               <th>Sąskaitos suma</th>
               <th>Veiksmai</th>
             </tr>
           </thead>
           <tbody>
-            {accounts.map((account) => (
-              <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />
-            ))}
+            {[...accounts]
+              .sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" }))
+              .map((account) => (
+                <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />
+              ))}
           </tbody>
         </table>
       )}

@@ -54,12 +54,12 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
   return (
     <tr>
       <td>
-        <span className="mobile-header">Vardas: </span>
-        {account.name}
-      </td>
-      <td>
         <span className="mobile-header">Pavardė: </span>
         {account.surname}
+      </td>
+      <td>
+        <span className="mobile-header">Vardas: </span>
+        {account.name}
       </td>
       <td>
         <span className="mobile-header">Suma: </span>
