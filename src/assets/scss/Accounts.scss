@@ -86,12 +86,19 @@
       }
     }
   }
-  .checkbox {
-    cursor: pointer;
-    padding: 0.5em;
-    border: 2px solid transparent;
-    &.checked {
-      border-color: green;
+  .filters {
+    p {
+      margin-bottom: 0.5em;
+    }
+    .checkbox {
+      // cursor: pointer;
+      padding: 0.5em;
+      border: 2px solid transparent;
+      &.checked {
+        border-color: $light;
+        color: $light;
+        background-color: $dark;
+      }
     }
   }
 }
