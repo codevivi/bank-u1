@@ -70,7 +70,7 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
         <button className="green" onClick={addMoneyToAccount}>
           pridėti lėšų
         </button>
-        <button className="orange" onClick={subtractMoneyFromAccount}>
+        <button className={`orange ${account.money < newAmount ? "disabled" : null}`} onClick={subtractMoneyFromAccount}>
           nuskaičiuoti lėšas
         </button>
 

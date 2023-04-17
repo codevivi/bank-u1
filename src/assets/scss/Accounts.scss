@@ -63,12 +63,6 @@
         &.red {
           float: right;
         }
-        &.disabled {
-          pointer-events: none;
-          color: rgb(126, 123, 123);
-          border-color: rgb(130, 127, 127);
-          background-color: rgba(128, 128, 128, 0.248);
-        }
       }
 
       &.td-actions {
@@ -90,6 +84,14 @@
       input:hover {
         background-color: #19aefe53;
       }
+    }
+  }
+  .checkbox {
+    cursor: pointer;
+    padding: 0.5em;
+    border: 2px solid transparent;
+    &.checked {
+      border-color: green;
     }
   }
 }

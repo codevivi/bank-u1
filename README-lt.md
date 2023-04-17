@@ -18,7 +18,8 @@ Sąskaitas saraše rūšiuoti pagal savininko pavardę.
 
 - [x] Sąskaitoje likusi suma negali būti minusinė. Rodomas klaidos pranešimas bandant nuskaičiuoti daugiau nei yra.
 
-Duomenų bazė - LocalStorage.
+- [x] Duomenų bazė - LocalStorage.
 
-Po kiekvienos įrašymo (trynimo) operacijos turi būti parodomas pranešimas apie operacijos rezultatus.
+- [x] Po kiekvienos įrašymo (trynimo) operacijos turi būti parodomas pranešimas apie operacijos rezultatus.
+
 Padaryti filtravimą, kuris parodytų tučiasias sąskaitas ir sąskaitas turinčias lėšų.

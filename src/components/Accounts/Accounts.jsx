@@ -6,6 +6,15 @@ import formatCurrency from "../../utils/formatCurrency";
 
 export default function Accounts({ addMsg }) {
   const [accounts, setAccounts] = useState(null);
+  const [radioFilter, setRadioFilter] = useState(null);
+
+  const handleFilterClick = (filter) => {
+    if (radioFilter === filter) {
+      setRadioFilter(null);
+      return;
+    }
+    setRadioFilter(filter);
+  };
 
   useEffect(() => {
     let dbAccounts = localStorage.getItem("accounts");
@@ -49,6 +58,14 @@ export default function Accounts({ addMsg }) {
           <span className="info-stat">{formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0))}</span>
         </p>
       </div>
+      <div>
+        <span className={"checkbox " + (radioFilter === "with-money" ? "checked" : "")} onClick={() => handleFilterClick("with-money")}>
+          Rodyti tik sąskaitas kuriose yra pinigų
+        </span>
+        <span className={"checkbox " + (radioFilter === "no-money" ? "checked" : "")} onClick={() => handleFilterClick("no-money")}>
+          Rodyti tik tuščias sąskaitas
+        </span>
+      </div>
       {accounts.length > 0 && (
         <table className="accounts-table">
           <thead>
@@ -60,11 +77,11 @@ export default function Accounts({ addMsg }) {
             </tr>
           </thead>
           <tbody>
-            {[...accounts]
-              .sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" }))
-              .map((account) => (
-                <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />
-              ))}
+            {radioFilter === "with-money" &&
+              [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money > 0 && <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />)}
+            {radioFilter === "no-money" &&
+              [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money === 0 && <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />)}
+            {radioFilter === null && [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />)}
           </tbody>
         </table>
       )}
