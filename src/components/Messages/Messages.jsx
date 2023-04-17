@@ -1,14 +1,23 @@
+import { useState } from "react";
 import Message from "./Message";
-
-function Messages({ messages, deleteMsg, deleteAll }) {
-  {
-    console.log(messages);
-  }
+import { MdOutlineExpandLess, MdOutlineExpandMore } from "react-icons/md";
+function Messages({ messages, deleteMsg, deleteAllMsg }) {
+  const [isExpanded, setIsExpanded] = useState("false");
   return (
-    <div className="messages">
+    <div className={`messages ${isExpanded ? "expanded" : null}`}>
       {messages.map((msg) => (
         <Message key={msg.id} msg={msg} deleteMsg={deleteMsg} />
       ))}
+      {messages.length > 1 && (
+        <div className="controls">
+          <button className="toggle-expand" onClick={() => setIsExpanded((is) => !is)}>
+            {isExpanded ? <MdOutlineExpandLess /> : <MdOutlineExpandMore />}
+          </button>
+          <button onClick={deleteAllMsg} className="delete-all red">
+            Panaikinti visas {messages.length}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

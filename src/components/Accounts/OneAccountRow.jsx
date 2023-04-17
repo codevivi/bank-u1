@@ -7,7 +7,6 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
 
   const changeAmount = (value) => {
     if (value) {
-      console.log(value);
       if (Number(value) > 1000000000000) {
         setNewAmount((1000000000000).toString());
         addMsg({ type: "error", text: "Maksimali suma kurią galite pridėti vienu metu - 1 trilijonas." });
@@ -50,16 +49,17 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
       return;
     }
     deleteAccount(account.id);
+    addMsg({ type: "success", text: `Kliento (${account.surname} ${account.name}) sąskaita sėkmingai panaikinta.` });
   };
   return (
     <tr>
       <td>
-        <span className="mobile-header">Vardas: </span>
-        {account.name}
-      </td>
-      <td>
         <span className="mobile-header">Pavardė: </span>
         {account.surname}
+      </td>
+      <td>
+        <span className="mobile-header">Vardas: </span>
+        {account.name}
       </td>
       <td>
         <span className="mobile-header">Suma: </span>

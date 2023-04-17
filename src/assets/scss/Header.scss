@@ -2,9 +2,10 @@
   background-color: $dark;
   border-bottom: 5px solid $light;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
+  z-index: 10;
   .logo {
     display: inline-flex;
     align-items: flex-end;

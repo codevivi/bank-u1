@@ -1,4 +1,4 @@
-import Accounts from "./components/Accounts/Accaunts";
+import Accounts from "./components/Accounts/Accounts";
 import Header from "./components/Parts/Header";
 import Footer from "./components/Parts/Footer";
 import Messages from "./components/Messages/Messages";
