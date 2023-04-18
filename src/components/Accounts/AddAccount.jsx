@@ -3,8 +3,6 @@ import { useState } from "react";
 export default function AddAccount({ addAccount, addMsg }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [nameErr, setNameErr] = useState("");
-  const [surnameErr, setSurnameErr] = useState("");
 
   function controlValidNameAndSurname(val) {
     val = val.replaceAll(/[^A-Za-ząčęėįšųūžĄČĘĖĮŠŲŪŽ\s]/g, "");
@@ -35,7 +33,7 @@ export default function AddAccount({ addAccount, addMsg }) {
 
       setName("");
       setSurname("");
-      addMsg({ type: "success", text: `Kliento ${name} ${surname} sąskaita  sėkmingai sukurta.` });
+      addMsg({ type: "success", text: `Kliento (${name} ${surname}) sąskaita  sėkmingai sukurta.` });
       return;
     }
   }

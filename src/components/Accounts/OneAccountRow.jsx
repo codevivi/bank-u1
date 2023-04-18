@@ -9,7 +9,6 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
     if (value) {
       if (Number(value) > 1000000000000) {
         setNewAmount((1000000000000).toString());
-        addMsg({ type: "error", text: "Maksimali suma kurią galite pridėti vienu metu - 1 trilijonas." });
         return;
       }
       setNewAmount(value);
@@ -23,7 +22,7 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
       setAccounts((accounts) => {
         return accounts.map((item) => (item.id === account.id ? { ...item, money: item.money + Number(newAmount) } : item));
       });
-      addMsg({ type: "success", text: "Lėšos sėkmingai pridėtos." });
+      addMsg({ type: "success", text: `${formatCurrency(newAmount)} pridėta į sąskaitą (${account.name} ${account.surname}).` });
     }
     setNewAmount(null);
   };
@@ -37,7 +36,7 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
       setAccounts((accounts) => {
         return accounts.map((item) => (item.id === account.id ? { ...item, money: item.money - Number(newAmount) } : item));
       });
-      addMsg({ type: "success", text: "Lėšos sėkmingai nuskaičiuotos." });
+      addMsg({ type: "success", text: `${formatCurrency(newAmount)} nuskaičiuota iš (${account.name} ${account.surname}).` });
     }
 
     setNewAmount(null);
@@ -66,17 +65,38 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
         {formatCurrency(account.money)}
       </td>
       <td className="td-actions">
-        <CurrencyInput id="amount" placeholder="Įveskite sumą" suffix=" &euro;" decimalsLimit={2} decimalSeparator="." decimalScale={2} allowDecimals={true} name="amount" allowNegativeValue={false} groupSeparator="," value={newAmount || ""} onValueChange={(value) => changeAmount(value)} />
-        <button className="green" onClick={addMoneyToAccount}>
-          pridėti lėšų
-        </button>
-        <button className={`orange ${account.money < newAmount ? "disabled" : null}`} onClick={subtractMoneyFromAccount}>
-          nuskaičiuoti lėšas
-        </button>
-
-        <button className={`red ${account.money > 0 ? "disabled" : null}`} onClick={handleDelete}>
-          ištrinti
-        </button>
+        <CurrencyInput
+          id="amount"
+          placeholder="Įveskite sumą"
+          suffix=" &euro;"
+          decimalsLimit={2}
+          decimalSeparator="."
+          decimalScale={2}
+          allowDecimals={true}
+          name="amount"
+          allowNegativeValue={false}
+          groupSeparator=","
+          value={newAmount || ""}
+          onValueChange={(value) => changeAmount(value)}></CurrencyInput>
+        <div className="control-box">
+          <button className="green" onClick={addMoneyToAccount}>
+            {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
+            pridėti lėšų
+          </button>
+        </div>
+        <div className="control-box">
+          <button className={`orange ${account.money < newAmount ? "disabled" : null}`} onClick={subtractMoneyFromAccount}>
+            {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
+            {account.money < newAmount && <span className="inline-msg">Negalima nuskaičiuoti daugiau nei yra sąskaitoje.</span>}
+            nuskaičiuoti lėšas
+          </button>
+        </div>
+        <div className="control-box">
+          <button className={`red ${account.money > 0 ? "disabled" : null}`} onClick={handleDelete}>
+            {account.money > 0 && <span className="inline-msg">Negalima ištrinti sąskaitos kurioje yra pinigų.</span>}
+            ištrinti
+          </button>
+        </div>
       </td>
     </tr>
   );

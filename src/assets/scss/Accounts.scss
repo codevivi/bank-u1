@@ -59,7 +59,29 @@
       text-indent: 1em;
       padding-right: 0.5em;
       border-bottom: 1px solid $accent;
+      .control-box:hover {
+        position: relative;
+        font-size: 0.8rem;
+        .inline-msg {
+          height: auto;
+          display: block;
+          width: max-content;
+          position: absolute;
+          padding: 0.5em;
+          border-radius: 8px 8px 0 8px;
+          border-bottom: 5px solid $dark;
+          border-right: 5px solid $dark;
+          background: $red;
+          color: white;
+          top: -60%;
+          right: 0;
+        }
+      }
       button {
+        .inline-msg {
+          display: none;
+        }
+
         &.red {
           float: right;
         }
