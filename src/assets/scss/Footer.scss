@@ -4,6 +4,10 @@
   color: $light;
   background-color: $dark;
   text-align: center;
+  align-self: flex-end;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   a {
     color: $accent;
   }

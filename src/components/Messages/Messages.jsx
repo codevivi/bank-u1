@@ -5,9 +5,11 @@ function Messages({ messages, deleteMsg, deleteAllMsg }) {
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div className={`messages ${isExpanded ? "expanded" : null}`}>
-      {messages.map((msg) => (
-        <Message key={msg.id} msg={msg} deleteMsg={deleteMsg} />
-      ))}
+      <div className="messages-inner">
+        {messages.map((msg) => (
+          <Message key={msg.id} msg={msg} deleteMsg={deleteMsg} />
+        ))}
+      </div>
       {messages.length > 1 && (
         <div className="controls">
           <button className="toggle-expand" onClick={() => setIsExpanded((is) => !is)}>
