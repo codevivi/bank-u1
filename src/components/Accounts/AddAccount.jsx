@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function AddAccount({ addAccount, addMsg }) {
+export default function AddAccount({ setNewAccount, addMsg }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
@@ -29,7 +29,7 @@ export default function AddAccount({ addAccount, addMsg }) {
     setSurname((surname) => surname.trim());
 
     if (name && surname) {
-      addAccount({ name, surname });
+      setNewAccount({ name, surname, money: 0 });
 
       setName("");
       setSurname("");

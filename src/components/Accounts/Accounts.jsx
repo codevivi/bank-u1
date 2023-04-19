@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import AddAccount from "./AddAccount";
-import { v4 as uniqId } from "uuid";
 import OneAccountRow from "./OneAccountRow";
 import formatCurrency from "../../utils/formatCurrency";
+import { dbAdd, dbDeleteById, dbGet, dbUpdate } from "../../db";
+
+const DB_KEY = "accounts";
 
 export default function Accounts({ addMsg }) {
   const [accounts, setAccounts] = useState(null);
+
+  const [newAccount, setNewAccount] = useState(null);
+  const [deleteAccountId, setDeleteAccountId] = useState(null);
+  const [updateAccount, setUpdateAccount] = useState(null);
+
   const [radioFilter, setRadioFilter] = useState(null);
 
   const handleFilterClick = (filter) => {
@@ -17,38 +24,41 @@ export default function Accounts({ addMsg }) {
   };
 
   useEffect(() => {
-    let dbAccounts = localStorage.getItem("accounts");
-    if (dbAccounts !== null) {
-      setAccounts(JSON.parse(dbAccounts));
-    } else {
-      setAccounts([]);
-    }
+    setAccounts(dbGet(DB_KEY));
   }, []);
 
   useEffect(() => {
-    if (accounts === null) {
+    if (newAccount) {
+      dbAdd({ key: DB_KEY, data: newAccount });
+      setAccounts(dbGet(DB_KEY));
+      setNewAccount(null);
       return;
     }
-    localStorage.setItem("accounts", JSON.stringify(accounts));
-  }, [accounts]);
-
-  const addAccount = ({ name, surname }) => {
-    setAccounts((accounts) => {
-      return [...accounts, { id: uniqId(), name, surname, money: 0 }];
-    });
-  };
-
-  const deleteAccount = (id) => {
-    setAccounts((accounts) => [...accounts].filter((account) => account.id !== id));
-  };
+    if (deleteAccountId) {
+      dbDeleteById({ key: DB_KEY, id: deleteAccountId });
+      setAccounts(dbGet(DB_KEY));
+      setDeleteAccountId(null);
+      return;
+    }
+    if (updateAccount) {
+      dbUpdate({ key: DB_KEY, data: updateAccount });
+      setAccounts(dbGet(DB_KEY));
+      setUpdateAccount(null);
+      return;
+    }
+  }, [newAccount, deleteAccountId, updateAccount]);
 
   if (accounts === null) {
-    return null;
+    return (
+      <section className="accounts">
+        <h1 style={{ fontSize: "48px" }}>Loading...</h1>;
+      </section>
+    );
   }
   return (
     <section className="accounts">
       <h1>Sąskaitos</h1>
-      <div className={`info  + ${accounts?.length > 0 ? "left" : ""}`}>
+      <div className={`info  + ${accounts.length > 0 ? "left" : ""}`}>
         <p>
           <span className="info-header">Klientų skaičius: </span>
           <span className="info-stat">{accounts.length}</span>
@@ -58,7 +68,7 @@ export default function Accounts({ addMsg }) {
           <span className="info-stat">{formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0))}</span>
         </p>
       </div>
-      {accounts.length > 0 && (
+      {accounts?.length > 0 && (
         <>
           <div className="filters">
             <p>Rodyti sąskaitas </p>
@@ -81,17 +91,18 @@ export default function Accounts({ addMsg }) {
                 <th>Veiksmai</th>
               </tr>
             </thead>
+
             <tbody>
               {radioFilter === "with-money" &&
-                [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money > 0 && <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />)}
+                [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money > 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
               {radioFilter === "no-money" &&
-                [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money === 0 && <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />)}
-              {radioFilter === null && [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => <OneAccountRow key={account.id} account={account} deleteAccount={deleteAccount} setAccounts={setAccounts} addMsg={addMsg} />)}
+                [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money === 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
+              {radioFilter === null && [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
             </tbody>
           </table>
         </>
       )}
-      <AddAccount addAccount={addAccount} addMsg={addMsg} />
+      <AddAccount setNewAccount={setNewAccount} addMsg={addMsg} />
     </section>
   );
 }

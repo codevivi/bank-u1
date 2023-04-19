@@ -2,7 +2,7 @@ import CurrencyInput from "react-currency-input-field";
 import { useState } from "react";
 import formatCurrency from "../../utils/formatCurrency";
 
-export default function OneAccountRow({ account, setAccounts, deleteAccount, addMsg }) {
+export default function OneAccountRow({ account, setUpdateAccount, setDeleteAccountId, addMsg }) {
   const [newAmount, setNewAmount] = useState(null);
 
   const changeAmount = (value) => {
@@ -19,9 +19,7 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
 
   const addMoneyToAccount = () => {
     if (newAmount !== null) {
-      setAccounts((accounts) => {
-        return accounts.map((item) => (item.id === account.id ? { ...item, money: item.money + Number(newAmount) } : item));
-      });
+      setUpdateAccount({ ...account, money: account.money + Number(newAmount) });
       addMsg({ type: "success", text: `${formatCurrency(newAmount)} pridėta į sąskaitą (${account.name} ${account.surname}).` });
     }
     setNewAmount(null);
@@ -33,9 +31,7 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
         addMsg({ type: "error", text: "Pervedimas nepavyko: saskaitoje neužtenka pinigų." });
         return;
       }
-      setAccounts((accounts) => {
-        return accounts.map((item) => (item.id === account.id ? { ...item, money: item.money - Number(newAmount) } : item));
-      });
+      setUpdateAccount({ ...account, money: account.money - Number(newAmount) });
       addMsg({ type: "success", text: `${formatCurrency(newAmount)} nuskaičiuota iš (${account.name} ${account.surname}).` });
     }
 
@@ -47,7 +43,7 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
       addMsg({ type: "error", text: "Sąskaitos kurioje yra pinigų ištrinti negalima." });
       return;
     }
-    deleteAccount(account.id);
+    setDeleteAccountId(account.id);
     addMsg({ type: "success", text: `Kliento (${account.surname} ${account.name}) sąskaita sėkmingai panaikinta.` });
   };
   return (
@@ -62,7 +58,7 @@ export default function OneAccountRow({ account, setAccounts, deleteAccount, add
       </td>
       <td>
         <span className="mobile-header">Suma: </span>
-        {formatCurrency(account.money)}
+        {formatCurrency(Number(account.money))}
       </td>
       <td className="td-actions">
         <CurrencyInput
