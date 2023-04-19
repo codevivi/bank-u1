@@ -32,24 +32,3 @@ export const dbUpdate = ({ key, data }) => {
   const updatedData = currentData.map((item) => (item.id === data.id ? { ...data } : { ...item }));
   write(key, updatedData);
 };
-
-// const dbSaveAll = (key, data) => {
-//   localStorage.setItem(key, JSON.stringify(data));
-// };
-
-// export const dbGetAll = (key) => {
-//   return read(key);
-// };
-
-// export const dbStore = (key, data) => {
-//   data.id = uuid();
-//   write(key, [...read(key), data]);
-// };
-
-// export const dbUpdate = (key, data, id) => {
-//   return read(key).map((d) => (d.id === id ? { ...d, ...data, id: d.id } : { ...d }));
-// };
-
-// export const dbDelete = (key, id) => {
-//   return read(key).filter((d) => d.id !== id);
-// };

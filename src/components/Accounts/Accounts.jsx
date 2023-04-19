@@ -8,6 +8,7 @@ const DB_KEY = "accounts";
 
 export default function Accounts({ addMsg }) {
   const [accounts, setAccounts] = useState(null);
+  const [lastUpdateTime, setLastUpdateTime] = useState(null);
 
   const [newAccount, setNewAccount] = useState(null);
   const [deleteAccountId, setDeleteAccountId] = useState(null);
@@ -25,28 +26,31 @@ export default function Accounts({ addMsg }) {
 
   useEffect(() => {
     setAccounts(dbGet(DB_KEY));
-  }, []);
+  }, [lastUpdateTime]);
 
   useEffect(() => {
-    if (newAccount) {
-      dbAdd({ key: DB_KEY, data: newAccount });
-      setAccounts(dbGet(DB_KEY));
-      setNewAccount(null);
+    if (newAccount === null) {
       return;
     }
-    if (deleteAccountId) {
-      dbDeleteById({ key: DB_KEY, id: deleteAccountId });
-      setAccounts(dbGet(DB_KEY));
-      setDeleteAccountId(null);
+    dbAdd({ key: DB_KEY, data: newAccount });
+    setLastUpdateTime(Date.now());
+  }, [newAccount]);
+
+  useEffect(() => {
+    if (deleteAccountId === null) {
       return;
     }
-    if (updateAccount) {
-      dbUpdate({ key: DB_KEY, data: updateAccount });
-      setAccounts(dbGet(DB_KEY));
-      setUpdateAccount(null);
+    dbDeleteById({ key: DB_KEY, id: deleteAccountId });
+    setLastUpdateTime(Date.now());
+  }, [deleteAccountId]);
+
+  useEffect(() => {
+    if (updateAccount === null) {
       return;
     }
-  }, [newAccount, deleteAccountId, updateAccount]);
+    dbUpdate({ key: DB_KEY, data: updateAccount });
+    setLastUpdateTime(Date.now());
+  }, [updateAccount]);
 
   if (accounts === null) {
     return (
