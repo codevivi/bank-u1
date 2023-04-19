@@ -4,7 +4,7 @@
 
 2023-03-24 assignment
 
-NOT FINISHED (working on);
+Site published at [https://codevivi.github.io/bank-u1/](https://codevivi.github.io/bank-u1/)
 
 [read task in lithuanian](./README-lt.md)
 
