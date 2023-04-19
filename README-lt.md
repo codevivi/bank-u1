@@ -14,7 +14,7 @@ Banką sudaro puslapis, kuriame yra:
 
 - [x] Sąskaitos, kurioje yra lėšų ištrinti neturi būti galima.
 
-Sąskaitas saraše rūšiuoti pagal savininko pavardę.
+- [x] Sąskaitas saraše rūšiuoti pagal savininko pavardę.
 
 - [x] Sąskaitoje likusi suma negali būti minusinė. Rodomas klaidos pranešimas bandant nuskaičiuoti daugiau nei yra.
 
@@ -22,4 +22,4 @@ Sąskaitas saraše rūšiuoti pagal savininko pavardę.
 
 - [x] Po kiekvienos įrašymo (trynimo) operacijos turi būti parodomas pranešimas apie operacijos rezultatus.
 
-Padaryti filtravimą, kuris parodytų tučiasias sąskaitas ir sąskaitas turinčias lėšų.
+- [x] Padaryti filtravimą, kuris parodytų tučiasias sąskaitas ir sąskaitas turinčias lėšų.
