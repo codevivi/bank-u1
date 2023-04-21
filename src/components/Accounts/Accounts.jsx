@@ -25,7 +25,7 @@ export default function Accounts({ addMsg }) {
   };
 
   useEffect(() => {
-    setAccounts(dbGet(DB_KEY));
+    setAccounts(dbGet(DB_KEY).sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })));
   }, [lastUpdateTime]);
 
   useEffect(() => {
@@ -97,11 +97,9 @@ export default function Accounts({ addMsg }) {
             </thead>
 
             <tbody>
-              {radioFilter === "with-money" &&
-                [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money > 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
-              {radioFilter === "no-money" &&
-                [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => account.money === 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
-              {radioFilter === null && [...accounts].sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })).map((account) => <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
+              {radioFilter === "with-money" && accounts.map((account) => account.money > 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
+              {radioFilter === "no-money" && accounts.map((account) => account.money === 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
+              {radioFilter === null && accounts.map((account) => <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
             </tbody>
           </table>
         </>
