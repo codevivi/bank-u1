@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddAccount from "./AddAccount";
 import OneAccountRow from "./OneAccountRow";
+import Filter from "./Filter";
 import formatCurrency from "../../utils/formatCurrency";
 import { dbAdd, dbDeleteById, dbGet, dbUpdate } from "../../db";
 
@@ -8,26 +9,25 @@ const DB_KEY = "accounts";
 
 export default function Accounts({ addMsg }) {
   const [accounts, setAccounts] = useState(null);
+  const [displayAccounts, setDisplayAccounts] = useState(accounts);
+  const [filterFunc, setFilterFunc] = useState(null);
   const [lastUpdateTime, setLastUpdateTime] = useState(null);
 
   const [newAccount, setNewAccount] = useState(null);
   const [deleteAccountId, setDeleteAccountId] = useState(null);
   const [updateAccount, setUpdateAccount] = useState(null);
 
-  const [radioFilter, setRadioFilter] = useState(null);
-
-  const handleFilterClick = (filter) => {
-    if (radioFilter === filter || filter === null) {
-      setRadioFilter(null);
-      return;
-    }
-    setRadioFilter(filter);
-  };
-
+  // get from db and use default sort by surname
   useEffect(() => {
     setAccounts(dbGet(DB_KEY).sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })));
   }, [lastUpdateTime]);
 
+  // use filtered accounts for display if filter function set
+  useEffect(() => {
+    setDisplayAccounts(filterFunc !== null ? filterFunc(accounts) : accounts);
+  }, [accounts, filterFunc]);
+
+  // add account to db
   useEffect(() => {
     if (newAccount === null) {
       return;
@@ -36,6 +36,7 @@ export default function Accounts({ addMsg }) {
     setLastUpdateTime(Date.now());
   }, [newAccount]);
 
+  // delete account from db
   useEffect(() => {
     if (deleteAccountId === null) {
       return;
@@ -44,6 +45,7 @@ export default function Accounts({ addMsg }) {
     setLastUpdateTime(Date.now());
   }, [deleteAccountId]);
 
+  // update account in db
   useEffect(() => {
     if (updateAccount === null) {
       return;
@@ -52,7 +54,7 @@ export default function Accounts({ addMsg }) {
     setLastUpdateTime(Date.now());
   }, [updateAccount]);
 
-  if (accounts === null) {
+  if (accounts === null || displayAccounts === null) {
     return (
       <section className="accounts">
         <h1 style={{ fontSize: "48px" }}>Loading...</h1>;
@@ -74,18 +76,8 @@ export default function Accounts({ addMsg }) {
       </div>
       {accounts?.length > 0 && (
         <>
-          <div className="filters">
-            <p>Rodyti sąskaitas </p>
-            <button className={"checkbox " + (radioFilter === null ? "checked" : "")} onClick={() => handleFilterClick(null)}>
-              Visas
-            </button>
-            <button className={"checkbox " + (radioFilter === "with-money" ? "checked" : "")} onClick={() => handleFilterClick("with-money")}>
-              Kuriose yra pinigų
-            </button>
-            <button className={"checkbox " + (radioFilter === "no-money" ? "checked" : "")} onClick={() => handleFilterClick("no-money")}>
-              Tuščias
-            </button>
-          </div>
+          <Filter setFilterFunc={setFilterFunc} />
+
           <table className="accounts-table">
             <thead>
               <tr>
@@ -97,9 +89,9 @@ export default function Accounts({ addMsg }) {
             </thead>
 
             <tbody>
-              {radioFilter === "with-money" && accounts.map((account) => account.money > 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
-              {radioFilter === "no-money" && accounts.map((account) => account.money === 0 && <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
-              {radioFilter === null && accounts.map((account) => <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />)}
+              {displayAccounts.map((account) => (
+                <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />
+              ))}
             </tbody>
           </table>
         </>
