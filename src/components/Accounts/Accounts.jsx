@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AddAccount from "./AddAccount";
 import OneAccountRow from "./OneAccountRow";
 import Filter from "./Filter";
-import formatCurrency from "../../utils/formatCurrency";
+import Stats from "./Stats";
 import { dbAdd, dbDeleteById, dbGet, dbUpdate } from "../../db";
 
 const DB_KEY = "accounts";
@@ -64,16 +64,7 @@ export default function Accounts({ addMsg }) {
   return (
     <section className="accounts">
       <h1>Sąskaitos</h1>
-      <div className={`info  + ${accounts.length > 0 ? "left" : ""}`}>
-        <p>
-          <span className="info-header">Klientų skaičius: </span>
-          <span className="info-stat">{accounts.length}</span>
-        </p>
-        <p>
-          <span className="info-header">Bendra laikoma suma: </span>
-          <span className="info-stat">{formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0))}</span>
-        </p>
-      </div>
+      <Stats accounts={accounts} />
       {accounts?.length > 0 && (
         <>
           <Filter setFilterFunc={setFilterFunc} />
