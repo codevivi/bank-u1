@@ -61,31 +61,33 @@ export default function OneAccountRow({ account, setUpdateAccount, setDeleteAcco
         {formatCurrency(Number(account.money))}
       </td>
       <td className="td-actions">
-        <CurrencyInput
-          id="amount"
-          placeholder="Įveskite sumą"
-          suffix=" &euro;"
-          decimalsLimit={2}
-          decimalSeparator="."
-          decimalScale={2}
-          allowDecimals={true}
-          name="amount"
-          allowNegativeValue={false}
-          groupSeparator=","
-          value={newAmount || ""}
-          onValueChange={(value) => changeAmount(value)}></CurrencyInput>
-        <div className="control-box">
-          <button className="green" onClick={addMoneyToAccount}>
-            {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
-            pridėti lėšų
-          </button>
-        </div>
-        <div className="control-box">
-          <button className={`orange ${account.money < newAmount ? "disabled" : null}`} onClick={subtractMoneyFromAccount}>
-            {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
-            {account.money < newAmount && <span className="inline-msg">Negalima nuskaičiuoti daugiau nei yra sąskaitoje.</span>}
-            nuskaičiuoti lėšas
-          </button>
+        <div className="edit-actions">
+          <CurrencyInput
+            id="amount"
+            placeholder="Įveskite sumą"
+            suffix=" &euro;"
+            decimalsLimit={2}
+            decimalSeparator="."
+            decimalScale={2}
+            allowDecimals={true}
+            name="amount"
+            allowNegativeValue={false}
+            groupSeparator=","
+            value={newAmount || ""}
+            onValueChange={(value) => changeAmount(value)}></CurrencyInput>
+          <div className="control-box">
+            <button className="green" onClick={addMoneyToAccount}>
+              {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
+              pridėti lėšų
+            </button>
+          </div>
+          <div className="control-box">
+            <button className={`orange ${account.money < newAmount ? "disabled" : null}`} onClick={subtractMoneyFromAccount}>
+              {!newAmount && <span className="inline-msg">Įrašykite sumą</span>}
+              {account.money < newAmount && <span className="inline-msg">Negalima nuskaičiuoti daugiau nei yra sąskaitoje.</span>}
+              nuskaičiuoti lėšas
+            </button>
+          </div>
         </div>
         <div className="control-box">
           <button className={`red ${account.money > 0 ? "disabled" : null}`} onClick={handleDelete}>

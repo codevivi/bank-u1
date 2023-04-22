@@ -3,51 +3,55 @@ $dark: #0d2149;
 $darkest: #0c090d;
 $green: #00804b;
 $light: #f9ebe0;
-$orange: #ff5500;
-$red: #ef2906;
+$orange: #c27052;
+$red: #8c0909;
 $margin-large: 2.5rem;
 
 button {
   font-size: 12px;
   padding: 0.5em 1em;
-  background-color: inherit;
+  background-color: $accent;
   font-weight: bold;
-  color: $dark;
-  border: 1px solid $dark;
+  text-transform: uppercase;
+  color: white;
+  border: 1px solid white;
   transition: all 0.3s;
   min-height: 3em;
   margin: 0.1em;
   cursor: pointer;
 
   &.red {
-    color: $red;
-    border-color: $red;
+    // color: $dark;
+    border-color: $dark;
+    background-color: $red;
   }
   &.orange {
-    color: $orange;
-    border-color: $orange;
+    // color: $dark;
+    border-color: $dark;
+    background-color: $orange;
   }
   &.green {
-    color: $green;
-    border-color: $green;
+    // color: $dark;
+    border-color: $dark;
+    background-color: $green;
   }
   &.disabled {
     pointer-events: none;
     color: rgb(126, 123, 123);
     border-color: rgb(130, 127, 127);
-    background-color: rgba(128, 128, 128, 0.248);
+    background-color: rgb(177, 176, 176);
   }
 }
 button:hover,
 button:focus {
-  background-color: #053f6b61;
+  background-color: rgb(4, 136, 212);
   &.green {
-    background-color: rgba(0, 128, 0, 0.315);
+    background-color: rgb(9, 167, 9);
   }
   &.red {
-    background-color: rgba(255, 0, 0, 0.317);
+    background-color: rgb(250, 0, 0);
   }
   &.orange {
-    background-color: rgba(255, 102, 0, 0.308);
+    background-color: rgb(250, 100, 0);
   }
 }
