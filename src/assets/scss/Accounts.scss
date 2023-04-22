@@ -3,6 +3,16 @@
   max-width: fit-content;
   min-width: 836px;
   margin: auto;
+  .main {
+    position: relative;
+    z-index: 1;
+  }
+  .open-btn {
+    position: absolute;
+    background-color: $dark;
+    top: 1.8rem;
+    right: 0;
+  }
   .info {
     width: fit-content;
     min-width: 280px;
@@ -134,6 +144,16 @@
     min-width: 100%;
     width: 100%;
     max-width: 100%;
+    .close-btn {
+      font-size: 36px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: auto;
+      padding: 0;
+    }
     .accounts-table {
       min-height: 50px;
       background-color: white;

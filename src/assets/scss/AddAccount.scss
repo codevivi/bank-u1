@@ -1,16 +1,49 @@
 .add-account {
-  width: fit-content;
-  min-width: 280px;
-  border-top: 5px solid $dark;
-  background-color: $light;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+
   padding: 1em;
+  padding-top: 5em;
   margin: auto;
-  margin-bottom: $margin-large;
+  background-color: #19aefecd;
+  text-align: center;
+  .main {
+    width: fit-content;
+    padding: 2em;
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 6em;
+    position: relative;
+    background-color: $dark;
+  }
+  .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    color: $light;
+    border: none;
+    font-size: 32px;
+  }
+  .close-btn:focus,
+  .close-btn:hover {
+    color: $accent;
+  }
   h2 {
-    margin-bottom: 0.8em;
+    margin-bottom: 2em;
     font-weight: normal;
+    color: white;
   }
   .add-account-form {
+    background-color: $light;
+    padding: 3em;
     margin: auto;
     max-width: fit-content;
     display: flex;

@@ -17,6 +17,8 @@ export default function Accounts({ addMsg }) {
   const [deleteAccountId, setDeleteAccountId] = useState(null);
   const [updateAccount, setUpdateAccount] = useState(null);
 
+  const [addAccountModalOpen, setAddAccountModalOpen] = useState(false);
+
   // get from db and use default sort by surname
   useEffect(() => {
     setAccounts(dbGet(DB_KEY).sort((a, b) => a.surname.localeCompare(b.surname, "lt", { sensitivity: "base" })));
@@ -65,29 +67,34 @@ export default function Accounts({ addMsg }) {
     <section className="accounts">
       <h1>Sąskaitos</h1>
       <Stats accounts={accounts} />
-      {accounts?.length > 0 && (
-        <>
-          <Filter setFilterFunc={setFilterFunc} />
+      <div className="main">
+        <button className="open-btn" onClick={() => setAddAccountModalOpen(true)}>
+          Pridėti sąskaitą
+        </button>
+        {accounts?.length > 0 && (
+          <>
+            <Filter setFilterFunc={setFilterFunc} />
 
-          <table className="accounts-table">
-            <thead>
-              <tr>
-                <th>Pavardė</th>
-                <th>Vardas</th>
-                <th>Sąskaitos suma</th>
-                <th>Veiksmai</th>
-              </tr>
-            </thead>
+            <table className="accounts-table">
+              <thead>
+                <tr>
+                  <th>Pavardė</th>
+                  <th>Vardas</th>
+                  <th>Sąskaitos suma</th>
+                  <th>Veiksmai</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              {displayAccounts.map((account) => (
-                <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
-      <AddAccount setNewAccount={setNewAccount} addMsg={addMsg} />
+              <tbody>
+                {displayAccounts.map((account) => (
+                  <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+        {addAccountModalOpen && <AddAccount setAddAccountModalOpen={setAddAccountModalOpen} setNewAccount={setNewAccount} addMsg={addMsg} />}
+      </div>
     </section>
   );
 }

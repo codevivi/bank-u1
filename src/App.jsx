@@ -7,6 +7,7 @@ import { v4 as uuid } from "uuid";
 
 function App() {
   const [messages, setMessages] = useState([]);
+
   const addMsg = ({ type, text }) => {
     setMessages((prevMessages) => [...prevMessages, { id: uuid(), type, text }]);
   };

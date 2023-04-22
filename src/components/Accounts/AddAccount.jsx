@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { MdClose } from "react-icons/md";
 
-export default function AddAccount({ setNewAccount, addMsg }) {
+export default function AddAccount({ setAddAccountModalOpen, setNewAccount, addMsg }) {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
@@ -34,24 +35,30 @@ export default function AddAccount({ setNewAccount, addMsg }) {
       setName("");
       setSurname("");
       addMsg({ type: "success", text: `Kliento (${name} ${surname}) sąskaita  sėkmingai sukurta.` });
+      setAddAccountModalOpen(false);
       return;
     }
   }
 
   return (
     <div className="add-account">
-      <h2>Sukurti naują sąskaitą</h2>
-      <form onSubmit={handleForm} className="add-account-form">
-        <div>
-          <label htmlFor="name">Vardas</label>
-          <input id="name" onChange={handleNameChange} required minLength={2} maxLength={30} name="name" value={name} type="text" />
-        </div>
-        <div>
-          <label htmlFor="surname">Pavardė</label>
-          <input id="surname" onChange={handleSurnameChange} required minLength={2} maxLength={30} name="surname" value={surname} type="text" />
-        </div>
-        <button>Sukurti</button>
-      </form>
+      <div className="main">
+        <button className="close-btn" onClick={() => setAddAccountModalOpen(false)}>
+          <MdClose />
+        </button>
+        <h2>Sukurti naują sąskaitą</h2>
+        <form onSubmit={handleForm} className="add-account-form">
+          <div>
+            <label htmlFor="name">Vardas</label>
+            <input id="name" onChange={handleNameChange} required minLength={2} maxLength={30} name="name" value={name} type="text" />
+          </div>
+          <div>
+            <label htmlFor="surname">Pavardė</label>
+            <input id="surname" onChange={handleSurnameChange} required minLength={2} maxLength={30} name="surname" value={surname} type="text" />
+          </div>
+          <button>Sukurti</button>
+        </form>
+      </div>
     </div>
   );
 }
