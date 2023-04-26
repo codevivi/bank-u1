@@ -66,35 +66,35 @@ export default function Accounts({ addMsg }) {
   return (
     <section className="accounts">
       <h1>Sąskaitos</h1>
-      <Stats accounts={accounts} />
-      <div className="main">
+      <div className="top">
+        <Stats accounts={accounts} />
         <button className="open-btn" onClick={() => setAddAccountModalOpen(true)}>
           Pridėti sąskaitą
         </button>
-        {accounts?.length > 0 && (
-          <>
-            <Filter setFilterFunc={setFilterFunc} />
-
-            <table className="accounts-table">
-              <thead>
-                <tr>
-                  <th>Pavardė</th>
-                  <th>Vardas</th>
-                  <th>Sąskaitos suma</th>
-                  <th>Veiksmai</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {displayAccounts.map((account) => (
-                  <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />
-                ))}
-              </tbody>
-            </table>
-          </>
-        )}
-        {addAccountModalOpen && <AddAccount setAddAccountModalOpen={setAddAccountModalOpen} setNewAccount={setNewAccount} addMsg={addMsg} />}
       </div>
+      {accounts?.length > 0 && (
+        <>
+          <Filter setFilterFunc={setFilterFunc} />
+
+          <table className="accounts-table">
+            <thead>
+              <tr>
+                <th>Pavardė</th>
+                <th>Vardas</th>
+                <th>Sąskaitos suma</th>
+                <th>Veiksmai</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {displayAccounts.map((account) => (
+                <OneAccountRow key={account.id} account={account} setDeleteAccountId={setDeleteAccountId} setUpdateAccount={setUpdateAccount} addMsg={addMsg} />
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+      {addAccountModalOpen && <AddAccount setAddAccountModalOpen={setAddAccountModalOpen} setNewAccount={setNewAccount} addMsg={addMsg} />}
     </section>
   );
 }

@@ -3,7 +3,7 @@ function Stats({ accounts }) {
   const totalMoneyInAllAccounts = formatCurrency(accounts.reduce((acc, curr) => acc + curr.money, 0));
 
   return (
-    <div className={`info  + ${accounts.length > 0 ? "left" : ""}`}>
+    <div className="info">
       <p>
         <span className="info-header">Klientų skaičius: </span>
         <span className="info-stat">{accounts.length}</span>
